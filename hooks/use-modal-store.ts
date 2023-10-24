@@ -7,7 +7,9 @@ export type ModalType =
   | "members"
   | "createChannel"
   | "leaveServer"
-  | "deleteServer";
+  | "deleteServer"
+  | "editChannel"
+  | "deleteChannel";
 
 interface ModelStore {
   type: ModalType | null;

@@ -4,7 +4,6 @@ import { db } from "@/lib/db";
 export const currentProfile = async () => {
   try {
     const { userId } = auth();
-    console.log(userId, "userId");
 
     if (!userId) {
       return null;

@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 export enum OS {
   WINDOW,
   MAC,
@@ -5,7 +9,17 @@ export enum OS {
   UNKNOWN,
 }
 
-export function getAgentSystem() {
+export const useGetAgentSystem = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   if (!("navigator" in window)) {
     return OS.UNKNOWN;
   }
@@ -16,4 +30,4 @@ export function getAgentSystem() {
   if (platform.includes("mac")) return OS.MAC;
   if (platform.includes("linux")) return OS.LINUX;
   return OS.UNKNOWN;
-}
+};
