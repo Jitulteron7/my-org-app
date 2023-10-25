@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Search } from "lucide-react";
-import { OS, getAgentSystem } from "@/lib/os";
 
 import {
   CommandDialog,
@@ -13,6 +12,7 @@ import {
   CommandItem,
   CommandList,
 } from "../ui/command";
+import { OS, useGetAgentSystem } from "@/hooks/use-os";
 
 interface ServerSearchProps {
   data: {
@@ -29,11 +29,10 @@ interface ServerSearchProps {
 }
 
 export const ServerSearch = ({ data }: ServerSearchProps) => {
-  const os_type = getAgentSystem();
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const params = useParams();
-
+  const os_type = useGetAgentSystem();
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
