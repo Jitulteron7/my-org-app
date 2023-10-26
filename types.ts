@@ -1,26 +1,16 @@
 import { Server as NetServer, Socket } from "net";
 import { NextApiResponse } from "next";
+import { Server as SocketIOServer } from "socket.io";
 import { Server, Member, Profile } from "@prisma/client";
 
 export type ServerWithMembersWithProfiles = Server & {
   members: (Member & { profile: Profile })[];
 };
 
-/**
- * id String @id @default(uuid())
-  name String 
-  imageUrl String @db.Text 
-  inviteCode String @db.Text 
-
-  profileId String 
-  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
-
-  
-  members Member[] 
-  channels Channel[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@index([profileId])
- */
+export type NextApiResponseServerIo = NextApiResponse & {
+  socket: Socket & {
+    server: NetServer & {
+      io: SocketIOServer;
+    };
+  };
+};
