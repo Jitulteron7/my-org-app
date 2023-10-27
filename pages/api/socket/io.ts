@@ -1,8 +1,8 @@
-import { NextApiResponseServerIo } from "@/types";
-import { Member, Profile, Server } from "@prisma/client";
 import { Server as NetServer } from "http";
-import { NextApiRequest, NextApiResponse } from "next";
-import { Server as ServerIo } from "socket.io";
+import { NextApiRequest } from "next";
+import { Server as ServerIO } from "socket.io";
+
+import { NextApiResponseServerIo } from "@/types";
 
 export const config = {
   api: {
@@ -12,17 +12,17 @@ export const config = {
 
 const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
   if (!res.socket.server.io) {
-    const path = `/api/socket/io`;
+    const path = "/api/socket/io";
     const httpServer: NetServer = res.socket.server as any;
-    const io = new ServerIo(httpServer, {
+    const io = new ServerIO(httpServer, {
       path: path,
+      // @ts-ignore
       addTrailingSlash: false,
     });
-
-    res.socket.server.io = io
+    res.socket.server.io = io;
   }
 
-  res.end()
+  res.end();
 };
 
-export default ioHandler
+export default ioHandler;
