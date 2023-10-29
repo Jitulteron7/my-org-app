@@ -22,6 +22,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
+    //(ClientIO as any) becuz the object created by new ClientIO(), typescript does not know the type of the object
+    // which is returned
     const socketInstance = new (ClientIO as any)(
       process.env.NEXT_PUBLIC_SITE_URL!,
       {
@@ -39,6 +41,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     setSocket(socketInstance);
+
+    console.log(socketInstance, typeof socketInstance);
 
     return () => {
       socketInstance.disconnect();

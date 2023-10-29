@@ -4,6 +4,7 @@ import Image from "next/image";
 import { UploadDropzone } from "@/lib/uploadthing";
 
 import "@uploadthing/react/styles.css";
+import { useEffect } from "react";
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
@@ -13,6 +14,10 @@ interface FileUploadProps {
 
 export const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
   const fileType = value?.split(".").pop();
+
+  useEffect(() => {
+    console.log(typeof value, fileType, "file", endpoint);
+  }, [endpoint, fileType, value]);
 
   if (value && fileType !== "pdf") {
     return (
